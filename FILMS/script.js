@@ -1,4 +1,3 @@
-//TMDB 
 
 const API_KEY = 'api_key=ea551bd2ce60768abd9bf79c53a90251';//API Key (v3 auth)
 const BASE_URL = 'https://api.themoviedb.org/3';//Example API Request
@@ -8,22 +7,14 @@ const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 const searchURL = BASE_URL + '/search/movie?'+API_KEY;
 
 
-
-const genres = []
-
 const main = document.getElementById('main'); // recuperation de #main
 const form =  document.getElementById('form'); // recuperation de #form
 const search = document.getElementById('search'); // recuperation de #search
 
 
-
-
-
-
-
 getMovies(API_URL); 
  
-// this function for show films
+// this function for get films
 function getMovies(url) {
 
     fetch(url).then(res => res.json()).then(data => {
@@ -39,6 +30,8 @@ function getMovies(url) {
 }
 // end get Movie
 
+
+// this function for show films
 function showMovies(data) {
     main.innerHTML = '';
 
@@ -61,6 +54,19 @@ function showMovies(data) {
     })
 }
 
+// end  showMovies
 
+// for serches
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
 
+    const searchTerm = search.value;
+    selectedGenre=[];
+   
+    if(searchTerm) {
+        getMovies(searchURL+'&query='+searchTerm)
+    }else{
+        getMovies(API_URL);
+    }
 
+})
